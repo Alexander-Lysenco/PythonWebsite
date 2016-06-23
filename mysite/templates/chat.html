@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+    {% block body %}
+    <script>
+        function load_messages() {
+        	var request = new XMLHttpRequest();
+        	request.open("GET", "/api/messages/list", true);
+        	request.onreadystatechange = function () {
+                  if (request.readyState == 4 && request.status == 200) {
+        		var msgs = JSON.parse(request.responseText)["messages"];
+        		var msgs_e = document.getElementById("messages");
+
+        		while (msgs_e.firstChild) {
+         			msgs_e.removeChild(msgs_e.firstChild);
+        		}
+
+        		for (var i = 0; i < msgs.length; i++) {
+        			var tag_e = document.createElement("div");
+        			msgs_e.appendChild(tag_e);
+
+        			tag_e.innerHTML = "<div class=\"panel panel-info\"><div class=\"panel-heading\"><h3 class=\"panel-title\">"+msgs[i][0]+"<p style=\"float: right; font-size: 8pt;\">"+msgs[i][2]+"</p></h3></div>"+
+                    "<div class=\"panel-body\">"+msgs[i][1]+"</div></div>"
+        		}
+
+        	  }
+        	}
+        	request.send();
+        }
+
+        function submit_form() {
+            var request = new XMLHttpRequest();
+            request.open("POST", "/api/messages/add", true);
+            request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+        	    document.getElementById("message_text").value = "";
+        	    load_messages();
+        	}
+            }
+
+            var txt = document.getElementById("message_text").value;
+            var user = document.getElementById("user").value;
+
+            if (user == "")
+                user = "Аноним";
+
+            if (txt == "")
+                return;
+
+            var data = {
+                text: txt,
+                user: user,
+            };
+            var json = JSON.stringify(data);
+
+            console.log(json);
+            request.send(json);
+        }
+    </script>
+    <br>
+    <div id="messages" style="max-width:800px;margin:auto">
+    Загрузка...
+    </div>
+    <br>
+    <div class="panel panel-primary" style="max-width:800px;margin:auto">
+        <div class="panel-heading">
+            <h3 class="panel-title">Написать сообщение</h3>
+        </div>
+        <div class="panel-body">
+            <form>
+            	Ваш ник: <input type="text" id="user" style="width: 80%; float: right;"><br>
+            	Текст сообщения: <br><textarea id="message_text" style="width: 100%; height: 100px;"></textarea><br>
+        	    <input type="button" class="btn btn-lg btn-primary" value="Отправить" onclick="submit_form()" style="margin-top: 10px;">
+            </form>
+        </div>
+    </div>
+    <script>load_messages()</script>
+    <script>window.setInterval(load_messages, 5000);</script>
+    {% endblock %}

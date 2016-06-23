@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../static/css/carousel.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../static/css/ico.ico">
+    <style id="holderjs-style" type="text/css"></style>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{title}} - 303 на связи!</title>
+    {% else %}
+    <title>303 на связи!</title>
+    {% endif %}
+</head>
+<body style="">
+    <div class="home-nav navbar-wrapper">
+          <div class="container">
+
+            <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#" title="Не нажимай сюда, рядом есть кнопка &quot;Главная&quot;"><strong>303 на связи!</strong></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/about">Кто мы?</a></li>
+                    <li><a href="/contact">И с чем нас едят?</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Наши проекты<b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/sqr">Квадрат числа</a></li>
+                        <li><a href="/chat">Чатик, где мы отвисаем</a></li>
+                        <li><a href="/linkshorter">Сокращение ссылок</a></li>
+                        <li><a href="/gallery">Галерея. Просто галерея</a></li>
+
+                        <li><a href="#">TODO: Add items here :-)</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Пока мы живы, раздел будет пополняться</li>
+                        <li><a href="/feedback">Напишите мне на почту</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% block body %}
+{% endblock %}
+        <hr>
+        <table border=0 align="center">
+            <tr>
+                <td>
+                    <img src="https://habrastorage.org/files/89a/4ea/6a1/89a4ea6a1271445588a16d94271f6799.jpg" width="80px" height="80px" style="margin: 20px;">
+                </td>
+                <td>
+                    <p>
+                        © Powered by Bootstrap, Flask, <a href="https://www.pythonanywhere.com">pythonanywhere.com</a>,<br>
+                        на соплях, честном слове, и костылях CSS3 и HTML5
+                    </p>
+                    <p>
+                        2016 год. <a href="https://vk.com/id90781995">Александр Лысенко</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/docs.min.js"></script>
+</body>
+</html>

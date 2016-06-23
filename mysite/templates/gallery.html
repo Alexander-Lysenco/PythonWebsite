@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+    {% block body %}
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Загрузить свой рисунок</h3>
+                            </div>
+                            <div class="panel-body">
+                                {% if message %}
+                                    <div class="alert alert-success" role="alert">
+                                        <p>{{ message }}</p>
+                                    </div>
+                                {% endif %}
+                                <p style="color:blue">Вы можете загрузить свое изображение, или, двигая слайдер, смотреть уже опубликованные.<p>
+                                <form action="/gallery" method="post" enctype="multipart/form-data">
+                                    <input type="file" value="*.jpeg" name="image" style="color:black"><br>
+                                    <input type="submit" class="btn btn-lg btn-primary" value="Опубликовать">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+        </div>
+            {% for file in fileslist %}
+            <div class="item">
+                <img  src="../static/img/{{file}}" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                    <p>{{file}}</p>
+                    <p><a href="/gallery/remove/{{file}}" role="button">Удалить</a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><!--span class="glyphicon glyphicon-chevron-left"></span--></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><!--span class="glyphicon glyphicon-chevron-right"></span--></a>
+    </div>
+{% endblock %}

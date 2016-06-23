@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+    {% block body %}
+    <br><br>
+    <div style="max-width:800px; margin:auto">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Нахождение квадрата числа</h3>
+        </div>
+        <div class="panel-body">
+            <form action="/sqr" method="post">
+                <label for="number">Число:</label><br/>
+                <input type="text" name="number" id="number">
+                <input type="submit" value="Найти квадрат">
+            </form>
+        </div>
+    </div>
+
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
+    {% if result %}
+        <div class="alert alert-success" role="alert">
+            <p>Квадрат числа <em>{{ input }}</em> равен <strong>{{ result }}</strong></p>
+        </div>
+    {% endif %}
+
+        <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Нахождение корней квадратного уравнения</h3>
+        </div>
+        <div class="panel-body">
+            <form action="/sqr2" method="post">
+                <label for="a">Коэффициент "a":</label>
+                <input type="text" name="a" id="a"><br/>
+                <label for="b">Коэффициент "b":</label>
+                <input type="text" name="b" id="b"><br/>
+                <label for="c">Коэффициент "c":</label>
+                <input type="text" name="c" id="c"><br/>
+                <input type="submit" value="Найти корни уравнения">
+            </form>
+        </div>
+    </div>
+
+    {% if errorcode %}
+        <div class="alert alert-danger" role="alert">
+            <p>{{ errorcode }}</p>
+        </div>
+    {% endif %}
+    {% if x1 %}
+        <div class="alert alert-success" role="alert">
+            <p>Решение уравнения: <strong>{{a}}x<sup>2</sup>{% if b > 0 %}+{{b}}{% else %}{{b}}{% endif %}x{% if c > 0 %}+{{c}}{% else %}{{c}}{% endif %}</strong><br/>
+            Дискриминант: <em>{{diskriminant}}</em><br/>
+            Корень 1: <em>{{x1}}</em><br/>
+            Корень 2: <em>{{x2}}</em></p>
+        </div>
+    {% endif %}
+    </div>
+    {% endblock %}
