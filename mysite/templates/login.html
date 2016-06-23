@@ -4,12 +4,18 @@
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../static/css/carousel.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../static/css/ico.ico">
     <style id="holderjs-style" type="text/css"></style>
     <meta charset="UTF-8">
     <title>Вход на сайт - 303 на связи!</title>
 </head>
 <body style="max-width: 600px; margin: auto;">
-        <div class="panel panel-primary">
+    {% if message %}
+    <div class="alert alert-danger" role="alert">
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Вход на сайт</h3>
         </div>
@@ -23,7 +29,6 @@
                 <a class="btn btn-lg btn-primary" href="/login" role="button">Забыли пароль?</a>
                 <a class="btn btn-lg btn-primary" href="/registration" role="button">Регистрация</a>
             </form>
-
         </div>
     </div>
         <!-- Bootstrap core JavaScript

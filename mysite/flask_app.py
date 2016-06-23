@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, jsonify, escape, redirect, url_for
+from flask import Flask, render_template, request, jsonify, escape, redirect
 from datetime import datetime
 from werkzeug import secure_filename
-import sqlite3, math, os, random, string
-#import uuid
-#import hashlib
+import sqlite3, math, os, random, string, re
+import uuid
+import hashlib
 
 # http://flask.pocoo.org/docs/0.10
 # http://ru.wikibooks.org/wiki/Flask
@@ -113,7 +113,10 @@ def linkshorter():
     else:
         try:
             url = str(request.form['url'])
-        except Error:
+            result = re.match(r'(ht|f)tp\w*://\w+\.\w+', url)
+            if(result==None):
+                raise ValueError
+        except ValueError:
             return render_template('linkshorter.html', error="Недопустимый формат URL")
         else:
             prefix = random_id()
@@ -156,7 +159,7 @@ def gallery():
         try:
             fs = request.files['image']
             fs.save('mysite/static/img/' + secure_filename(fs.filename))
-        except IsADirectoryError:
+        except OSError:
             return render_template('gallery.html')
     return redirect('/gallery')
 
@@ -164,6 +167,49 @@ def gallery():
 def remove(filename):
     os.remove('mysite/static/img/' + filename)
     return redirect('/gallery')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    message="Неправильный логин или пароль"
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        try:
+            login=request.form['login']
+            password=request.form['password']
+            if(login == "" or password == ""):
+                raise ValueError
+            else: pass
+        except ValueError:
+            message="Обнаружены пустые поля"
+            return render_template('login.html', message=message)
+        return render_template('login.html', message=message)
+
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    if request.method == 'GET':
+        return render_template('registration.html')
+    else:
+        realname = request.form['realname']
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        confirm  = request.form['confirm']
+        if(realname == "" or username == "" or email == "" or password == "" or confirm == ""):
+            return render_template('registration.html', message="Обнаружены пустые поля")
+        if password != confirm:
+            return render_template('registration.html', message="Пароли не совпадают")
+
+        salt = hashlib.sha512(str(uuid.uuid4()))
+        password_hash = hash(salt, password)
+        #try:
+        #    conn = sqlite3.connect('site.db')
+        #    c = conn.cursor()
+        #    c.execute('INSERT INTO users(username, password, salt) VALUES(?, ?, ?)', username, password_hash, salt)
+        #    conn.commit()
+        #except sqlite3.Error as e:
+        #    return render_template('registration.html', error = e.args[0])
+        return render_template('registration.html', message=[realname, username, email, password_hash])
 
 #if __name__ == '__main__':
 #    app.run()
