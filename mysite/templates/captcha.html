@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+    {% block body %}
+    <br><br>
+    <div style="max-width:800px; margin:auto">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Проверка на спамбота</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/captcha" method="post">
+                    <label for="number">{{ aa }} {{ xx }} {{ bb }} = </label>
+                    <input type="text" name="number" id="number" width="5">
+                    <input type="hidden" name="a" value={{aa}}>
+                    <input type="hidden" name="x" value={{xx}}>
+                    <input type="hidden" name="b" value={{bb}}>
+                    <input type="submit" value="ОТветить">
+                </form>
+            </div>
+        </div>
+
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
+    {% if result %}
+        <div class="alert alert-success" role="alert">
+            <p>{{ a }} {{ x }} {{ b }}</em> = <strong>{{ result }}. Правильно!</strong></p>
+        </div>
+    {% endif %}
+
+    </div>
+    {% endblock %}

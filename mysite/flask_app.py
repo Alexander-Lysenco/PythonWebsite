@@ -211,5 +211,29 @@ def registration():
         #    return render_template('registration.html', error = e.args[0])
         return render_template('registration.html', message=[realname, username, email, password_hash])
 
+@app.route('/captcha', methods=['GET', 'POST'])
+def captcha():
+    a = random.randrange(-99, 99)
+    x = random.choice(['+', '-', '*', ':'])
+    b = random.randrange(-99, 99)
+    if request.method == 'GET':
+        return render_template('captcha.html', aa=a, xx=x, bb=b)
+    a = int(request.form['a'])
+    x = request.form['x']
+    b = int(request.form['b'])
+    num=None
+    try:
+        num = int(request.form['number'])
+    except ValueError:
+        pass
+    if(x=='+'): c = a + b
+    if(x=='-'): c = a - b
+    if(x=='*'): c = a * b
+    if(x==':'): c = a / b
+    if(c==num):
+        return render_template('captcha.html', a=a, x=x, b=b, result=c)
+    return redirect('/captcha')
+
+
 #if __name__ == '__main__':
 #    app.run()

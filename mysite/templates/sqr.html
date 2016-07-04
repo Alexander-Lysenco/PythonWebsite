@@ -50,7 +50,7 @@
     {% endif %}
     {% if x1 %}
         <div class="alert alert-success" role="alert">
-            <p>Решение уравнения: <strong>{{a}}x<sup>2</sup>{% if b > 0 %}+{{b}}{% else %}{{b}}{% endif %}x{% if c > 0 %}+{{c}}{% else %}{{c}}{% endif %}</strong><br/>
+            <p>Решение уравнения: <strong>{{a}}x<sup>2</sup>{% if b >= 0 %}+{{b}}{% else %}{{b}}{% endif %}x{% if c >=0 %}+{{c}}{% else %}{{c}}{% endif %}</strong><br/>
             Дискриминант: <em>{{diskriminant}}</em><br/>
             Корень 1: <em>{{x1}}</em><br/>
             Корень 2: <em>{{x2}}</em></p>
